@@ -2,7 +2,7 @@
 	<div id="app">
 		<h1>Formulário Desafio</h1>
 		<div class="conteudo">
-			<form  class="painel">
+			<form v-if="!enviado" class="painel">
 				<div class="cabecalho">Formulário</div>
 
 				<NomeCompleto v-model="nomecompleto"></NomeCompleto>
@@ -18,21 +18,10 @@
 					<input type="checkbox" v-model="dados">
 				</rotulo>
 				
-
-
-				<!-- Exercicio 01 -->
-				<!-- Criar uma formulário de registro -->
-				<!-- Nome completo (Nome e Sobrenome) -->
-				<!-- Email -->
-				<!-- Senha -->
-				<!-- Armazenar Dados? (Sim/Não) -->
-
-				<!-- Exercicio 02 -->
-				<!-- Só mostrar o fomulário de não tiver sido submetido -->
-				<!-- Mostrar a área de Resultado apenas quando o formulário for submetido -->
+				<button @click.prevent="enviar">enviar</button>
 				
 			</form>
-			<div  class="painel">
+			<div v-else class="painel">
 				<div class="cabecalho">Resultado</div>
 				<Rotulo nome="Nome">
 					<span> {{nomecompleto.nome}} </span>
@@ -47,7 +36,7 @@
 					<span> {{senha}} </span>
 				</Rotulo>
 				<Rotulo nome="Armazenar">
-					<span> {{dados}} </span>
+					<span> {{armazenado}} </span>
 				</Rotulo>
 			</div>
 		</div>
@@ -61,6 +50,16 @@ import NomeCompleto from './components/NomeCompleto'
 export default {
 	name: 'app',
 	components: { Rotulo, NomeCompleto },
+	methods:{
+		enviar(){
+			this.enviado = true
+			
+			if(this.dados === true)
+				this.armazenado = 'Sim'
+			 else
+				this.armazenado = 'Não'
+		}
+	},
 	data(){
 		return{
 			enviado: false,
@@ -70,7 +69,8 @@ export default {
 			},
 			email:'',
 			senha:'',
-			dados: false
+			dados: false,
+			armazenado: ''
 		}
 	}
 }
