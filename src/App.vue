@@ -2,7 +2,7 @@
 	<div id="app">
 		<h1>Formulário Desafio</h1>
 		<div class="conteudo">
-			<form class="painel">
+			<form v-if="!enviado" class="painel">
 				<div class="cabecalho">Formulário</div>
 				<!-- Exercicio 01 -->
 				<!-- Criar uma formulário de registro -->
@@ -19,20 +19,25 @@
 				<!-- Crie um componente personalizado NomeCompleto -->
 				<!-- Esse componente deve receber Nome e Sobrenome -->
 			</form>
-			<div class="painel">
+			<div v-else class="painel">
 				<div class="cabecalho">Resultado</div>
-
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import Rotulo from './components/Rotulo.vue'
+import Rotulo from './components/Rotulo'
+import NomeCompleto from './components/NomeCompleto'
 
 export default {
 	name: 'app',
-	components: { Rotulo }
+	components: { Rotulo },
+	data(){
+		return{
+			enviado: false,
+		}
+	}
 }
 </script>
 
